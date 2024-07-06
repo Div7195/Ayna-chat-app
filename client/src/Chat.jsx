@@ -15,7 +15,7 @@ const Chat = () => {
     const [loading, setLoading] = useState(true)
     const [messages, setMessages] = useState([])
     const [query, setQuery] = useState(queryInitial)
-    const io = socket.connect("http://localhost:8000");
+    // const io = socket.connect("http://localhost:8000");
     
 
 
@@ -43,42 +43,42 @@ const Chat = () => {
                     }
         }
         func()
-        io.emit('joinroom', chatId);
+        // io.emit('joinroom', chatId);
         
         
       }, []);
-      io.on("message",  (data, error) => {
-        console.log(data)
-        const func = async () => {
-            const url = `http://localhost:8000/api/chats/${chatId}?populate=*`;
-            const settings = {
-                method: 'GET',
-                headers: {
-                    accept: 'application/json',
-                    authorization : getAccessToken()
-                }
-                };
-                try {
-                    const fetchResponse = await fetch(url, settings);
-                    const response = await fetchResponse.json();
-                    let arr = [];
-                    response.data.attributes.messages.data.map((one, i) => {
-                        arr = [one.attributes, ...arr];
-                        setMessages((msgs) => arr);
-                    });
-                    } catch (e) {
-                    console.log(e);
-                    }
-        }
-        func()
-        setQuery(queryInitial)
-    });
+    //   io.on("message",  (data, error) => {
+    //     console.log(data)
+    //     const func = async () => {
+    //         const url = `http://localhost:8000/api/chats/${chatId}?populate=*`;
+    //         const settings = {
+    //             method: 'GET',
+    //             headers: {
+    //                 accept: 'application/json',
+    //                 authorization : getAccessToken()
+    //             }
+    //             };
+    //             try {
+    //                 const fetchResponse = await fetch(url, settings);
+    //                 const response = await fetchResponse.json();
+    //                 let arr = [];
+    //                 response.data.attributes.messages.data.map((one, i) => {
+    //                     arr = [one.attributes, ...arr];
+    //                     setMessages((msgs) => arr);
+    //                 });
+    //                 } catch (e) {
+    //                 console.log(e);
+    //                 }
+    //     }
+    //     func()
+    //     setQuery(queryInitial)
+    // });
       const sendMessage = (query) => {
         if (query) {
             console.log(query)
-            io.emit('sendMessage', {
-                query
-            })
+            // io.emit('sendMessage', {
+            //     query
+            // })
           setQuery(queryInitial);
         
         } else {
